@@ -20,10 +20,10 @@ steps:
             az acr login --name testmyacrrr
       
             # Build Docker image
-            docker build -t myContainerRegistry.azurecr.io/nodejs-app:$(Build.BuildId) .
+            docker build -t testmyacrrr.azurecr.io/nodejs-app:$(Build.BuildId) .
       
             # Push Docker image to ACR
-            docker push myContainerRegistry.azurecr.io/nodejs-app:$(Build.BuildId)
+            docker push testmyacrrr.azurecr.io/nodejs-app:$(Build.BuildId)
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
