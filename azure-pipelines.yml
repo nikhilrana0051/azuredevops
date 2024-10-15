@@ -1,0 +1,31 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'nickaddy(70bcb842-f9f5-4b88-ac18-40dc37f34e56)'
+    scriptType: 'batch'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Log in to ACR
+            az acr login --name testmyacrrr
+      
+            # Build Docker image
+            docker build -t myContainerRegistry.azurecr.io/nodejs-app:$(Build.BuildId) .
+      
+            # Push Docker image to ACR
+            docker push myContainerRegistry.azurecr.io/nodejs-app:$(Build.BuildId)
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
