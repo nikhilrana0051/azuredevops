@@ -13,7 +13,7 @@ steps:
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'nickaddy(70bcb842-f9f5-4b88-ac18-40dc37f34e56)'
-    scriptType: 'batch'
+    scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
       # Log in to ACR
